@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "tailwind": "tailwindcss -i ./src/content/styles.css -o ./dist/content/styles.css",
+    "tailwind:watch": "bun tailwind --watch",
+    "manifest": "cp -v ./manifest.json ./dist/",
+    "build": "bun ./build.ts && bun manifest && bun tailwind"
+  },
+  "devDependencies": {
+    "@types/firefox-webext-browser": "^111.0.2",
+    "bun-types": "^1.0.5-canary.20231007T140129",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.2.2"
+  }
+}

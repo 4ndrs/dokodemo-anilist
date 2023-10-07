@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "Dokodemo Anilist",
+  "version": "0.0.1",
+  "permissions": ["activeTab", "contextMenus", "scripting"],
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
