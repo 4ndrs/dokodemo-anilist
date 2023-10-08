@@ -51,8 +51,8 @@ const AnimeFinder = ({ text }: { text: string }) => {
         ...OPTIONS,
         body: JSON.stringify({ query }),
       });
-      const data = await response.json();
 
+      const data = await response.json();
       const result = AnimeResponseSchema.safeParse(data);
 
       if (!result.success) {
@@ -79,21 +79,38 @@ const AnimeFinder = ({ text }: { text: string }) => {
   }
 
   return (
-    <ul className="rounded-md bg-white">
-      {animes.map((anime) => (
-        <li>
-          <AnimeCard anime={anime} />
-        </li>
-      ))}
-    </ul>
+    <div className="relative">
+      <h1 className="absolute -top-7 left-0 text-sm font-semibold text-slate-200">
+        Anime
+      </h1>
+
+      <ul className="overflow-hidden rounded-md bg-white">
+        {animes.map((anime) => (
+          <li key={anime.id}>
+            <AnimeCard anime={anime} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
 const AnimeCard = ({ anime }: { anime: Anime }) => (
-  <div className="py-3">
-    Image: {anime.coverImage.medium}
-    title: {anime.title.romaji}
-    yeart and format: {anime.startDate.year} {anime.format}
+  <div className="flex items-center justify-start gap-3 px-5 pb-3 pt-[0.94rem]">
+    <img
+      alt={anime.title.romaji}
+      src={anime.coverImage.medium}
+      className="h-10 w-10 flex-shrink-0 rounded-[0.19rem] object-cover"
+    />
+
+    <div className="flex flex-col justify-center gap-1">
+      <h2 className="text-ellipsis whitespace-nowrap text-[0.94rem] font-semibold text-slate-500">
+        {anime.title.romaji}
+      </h2>
+      <div className="text-ellipsis whitespace-nowrap text-xs font-medium text-slate-400">
+        {anime.startDate.year} {anime.format}
+      </div>
+    </div>
   </div>
 );
 
