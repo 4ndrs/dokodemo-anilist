@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "lint": "eslint ./src",
     "tailwind": "tailwindcss -i ./src/content/styles.css -o ./dist/content/styles.css",
     "tailwind:watch": "bun tailwind --watch",
     "manifest": "cp -v ./manifest.json ./dist/",
@@ -15,7 +16,12 @@
     "@types/firefox-webext-browser": "^111.0.2",
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.11",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
     "bun-types": "^1.0.5-canary.20231007T140129",
+    "eslint": "^8.51.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.5",
     "tailwindcss": "^3.3.3",
