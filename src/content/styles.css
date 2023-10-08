@@ -5,3 +5,9 @@
 .dokodemo-modal * {
   box-sizing: border-box;
 }
+
+.dokodemo-modal input:focus,
+.dokodemo-modal input:focus-visible {
+  border: none !important;
+  outline: none !important;
+}
