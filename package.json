@@ -4,7 +4,7 @@
     "lint": "eslint ./src",
     "tailwind": "tailwindcss -i ./src/content/styles.css -o ./dist/content/styles.css",
     "tailwind:watch": "bun tailwind --watch",
-    "manifest": "cp -v ./manifest.json ./dist/",
+    "manifest": "cp -v ./manifest.json './ˢᵐᵒᶫ ᵇᵒᶜᶜ.png' ./dist/",
     "build": "rm -rf ./dist && bun ./build.ts && bun manifest && bun tailwind"
   },
   "prettier": {

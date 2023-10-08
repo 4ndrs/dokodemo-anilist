@@ -1,9 +1,13 @@
 {
   "manifest_version": 3,
-  "name": "Dokodemo Anilist",
+  "name": "Dokodemo AniList (Unofficial)",
+  "description": "Bring AniList's search box anywhere",
   "version": "0.0.1",
   "permissions": ["activeTab", "contextMenus", "scripting"],
   "background": {
     "scripts": ["background.js"]
+  },
+  "icons": {
+    "40": "ˢᵐᵒᶫ ᵇᵒᶜᶜ.png"
   }
 }
