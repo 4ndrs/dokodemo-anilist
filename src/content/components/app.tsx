@@ -23,12 +23,15 @@ const App = ({ unmount }: { unmount: () => void }) => {
     <Modal open={isOpen} onOpenChange={handleOnOpenChange}>
       <SearchBar placeholder="Search AniList" />
       <div className="h-[36rem] rounded-md bg-white" />
+      <div className="h-[36rem] rounded-md bg-white" />
+      <div className="h-[36rem] rounded-md bg-white" />
+      <div className="h-[36rem] rounded-md bg-white" />
     </Modal>
   );
 };
 
 const SearchBar = (props: React.ComponentProps<"input">) => (
-  <div className="flex h-14 w-[43rem] items-center overflow-hidden rounded-md bg-white font-semibold text-slate-500">
+  <div className="mb-3 flex h-14 w-[43rem] items-center place-self-center overflow-hidden rounded-md bg-white font-semibold text-slate-500 lg:col-span-2 2xl:col-span-3">
     <MagnifyingGlassIcon className="h-5 w-5 p-5" />
     <input
       {...props}
@@ -49,7 +52,7 @@ const Modal = ({
 }) => (
   <Dialog.Root open={open} onOpenChange={onOpenChange}>
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed inset-0 z-[999] flex overflow-y-auto bg-black/60">
+      <Dialog.Overlay className="dokodemo-modal fixed inset-0 z-[999] flex overflow-y-auto bg-black/60">
         <Dialog.Content
           onClick={({ target, currentTarget }) => {
             // close the modal if we click outside of any of the children
@@ -57,7 +60,7 @@ const Modal = ({
               onOpenChange(false);
             }
           }}
-          className="absolute left-1/2 flex -translate-x-1/2 flex-col gap-9 py-20"
+          className="absolute left-1/2 grid w-full max-w-[calc(min(106rem,100vw)-(2.25rem*2))] -translate-x-1/2 gap-10 px-14 py-20 lg:grid-cols-2 2xl:grid-cols-3"
         >
           {children}
         </Dialog.Content>
