@@ -3,7 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { Cross2Icon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
-const App = () => {
+const App = ({ unmount }: { unmount: () => void }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleOnOpenChange = (open: boolean) => {
@@ -14,8 +14,8 @@ const App = () => {
       browser.runtime.sendMessage("SHUT IT DOWN!!");
 
       // TODO: this might influence animations later, keep an eye on it
-      // remove dokodemo div
-      document.getElementById("dokodemo-anilist")?.remove();
+      // unmount & remove dokodemo div
+      unmount();
     }
   };
 

@@ -10,7 +10,12 @@ if (!document.getElementById("dokodemo-anilist")) {
 
   document.body.appendChild(dokodemoElement);
 
-  ReactDOM.createRoot(
-    document.getElementById("dokodemo-anilist") as HTMLElement,
-  ).render(<App />);
+  const root = ReactDOM.createRoot(dokodemoElement);
+
+  const unmount = () => {
+    root.unmount();
+    dokodemoElement.remove();
+  };
+
+  root.render(<App unmount={unmount} />);
 }
