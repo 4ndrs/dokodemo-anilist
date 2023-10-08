@@ -16,3 +16,16 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
     });
   }
 });
+
+browser.runtime.onMessage.addListener((message, sender) => {
+  if (message !== "SHUT IT DOWN!!" || typeof sender.tab?.id !== "number") {
+    return;
+  }
+
+  console.log("got shut it down message");
+
+  browser.scripting.removeCSS({
+    target: { tabId: sender.tab.id },
+    files: ["content/styles.css"],
+  });
+});

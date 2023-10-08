@@ -1,12 +1,30 @@
 import * as Dialog from "@radix-ui/react-dialog";
 
+import { useState } from "react";
 import { Cross2Icon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
-const App = () => (
-  <Modal>
-    <SearchBar />
-  </Modal>
-);
+const App = () => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleOnOpenChange = (open: boolean) => {
+    setIsOpen(open);
+
+    if (!open) {
+      // send a message to the background script to unload injected css
+      browser.runtime.sendMessage("SHUT IT DOWN!!");
+
+      // TODO: this might influence animations later, keep an eye on it
+      // remove dokodemo div
+      document.getElementById("dokodemo-anilist")?.remove();
+    }
+  };
+
+  return (
+    <Modal open={isOpen} onOpenChange={handleOnOpenChange}>
+      <SearchBar />
+    </Modal>
+  );
+};
 
 const SearchBar = () => (
   <div className="flex h-14 w-[43rem] items-center overflow-hidden rounded-md bg-white font-semibold text-slate-500">
@@ -16,12 +34,16 @@ const SearchBar = () => (
   </div>
 );
 
-const Modal = ({ children }: { children: React.ReactNode }) => (
-  <Dialog.Root>
-    <Dialog.Trigger asChild>
-      <button>Open</button>
-    </Dialog.Trigger>
-
+const Modal = ({
+  open,
+  children,
+  onOpenChange,
+}: {
+  open: boolean;
+  children: React.ReactNode;
+  onOpenChange: (open: boolean) => void;
+}) => (
+  <Dialog.Root open={open} onOpenChange={onOpenChange}>
     <Dialog.Portal>
       <Dialog.Overlay className="fixed inset-0 bg-black/60" />
       <Dialog.Content className="fixed left-1/2 top-20 -translate-x-1/2">
