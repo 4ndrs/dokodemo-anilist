@@ -96,7 +96,12 @@ const AnimeFinder = ({ text }: { text: string }) => {
 };
 
 const AnimeCard = ({ anime }: { anime: Anime }) => (
-  <div className="flex items-center justify-start gap-3 px-5 pb-3 pt-[0.94rem]">
+  <a
+    href={`https://anilist.co/anime/${anime.id}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group flex items-center justify-start gap-3 px-5 pb-3 pt-[0.94rem] hover:bg-sky-400"
+  >
     <img
       alt={anime.title.romaji}
       src={anime.coverImage.medium}
@@ -104,14 +109,14 @@ const AnimeCard = ({ anime }: { anime: Anime }) => (
     />
 
     <div className="flex flex-col justify-center gap-1">
-      <h2 className="text-ellipsis whitespace-nowrap text-[0.94rem] font-semibold text-slate-500">
+      <h2 className="text-ellipsis whitespace-nowrap text-[0.94rem] font-semibold text-slate-500 group-hover:text-white">
         {anime.title.romaji}
       </h2>
-      <div className="text-ellipsis whitespace-nowrap text-xs font-medium text-slate-400">
+      <div className="text-ellipsis whitespace-nowrap text-xs font-medium text-slate-400 group-hover:text-slate-200">
         {anime.startDate.year} {anime.format}
       </div>
     </div>
-  </div>
+  </a>
 );
 
 export default AnimeFinder;
