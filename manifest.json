@@ -9,5 +9,10 @@
   },
   "icons": {
     "40": "ˢᵐᵒᶫ ᵇᵒᶜᶜ.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "dokodemo-anilist@4ndrs"
+    }
   }
 }
