@@ -28,6 +28,6 @@ export default defineConfig([
       file: "dist/background.js",
       format: "cjs",
     },
-    plugins: [typescript()],
+    plugins: [typescript(), nodeResolve()],
   },
 ]);

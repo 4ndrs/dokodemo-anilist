@@ -2,16 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimeResponseSchema } from "../schema/response";
 
 import type { Anime } from "../schema/anime";
-
-const URL = "https://graphql.anilist.co";
-
-const OPTIONS = {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-} as const;
+import type { FetchMessageSchema } from "../schema/message";
 
 const AnimeFinder = ({ text }: { text: string }) => {
   const [animes, setAnimes] = useState<Anime[]>([]);
@@ -47,12 +38,10 @@ const AnimeFinder = ({ text }: { text: string }) => {
     `;
 
     const cheerioooooooooo = async () => {
-      const response = await fetch(URL, {
-        ...OPTIONS,
-        body: JSON.stringify({ query }),
-      });
+      const data = await browser.runtime.sendMessage({
+        query,
+      } satisfies FetchMessageSchema);
 
-      const data = await response.json();
       const result = AnimeResponseSchema.safeParse(data);
 
       if (!result.success) {
