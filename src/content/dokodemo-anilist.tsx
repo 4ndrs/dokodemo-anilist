@@ -12,10 +12,7 @@ if (!document.getElementById("dokodemo-anilist")) {
 
   const root = ReactDOM.createRoot(dokodemoElement);
 
-  const unmount = () => {
-    root.unmount();
-    dokodemoElement.remove();
-  };
-
-  root.render(<App unmount={unmount} />);
+  root.render(<App />);
+} else {
+  console.error("dokodemo element already exist");
 }

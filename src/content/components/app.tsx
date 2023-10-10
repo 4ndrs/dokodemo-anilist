@@ -3,14 +3,25 @@ import SearchBar from "./search-bar";
 import AnimeFinder from "./anime-finder";
 
 import { useEffect, useState } from "react";
+import { ActionMessageSchema, type ActionResponse } from "../schema/message";
 
-const App = ({ unmount }: { unmount: () => void }) => {
+let runningTabId: number | undefined;
+
+(async () => {
+  const id = await browser.runtime.sendMessage("gimme-tab-id");
+
+  console.log("received id:", id);
+
+  runningTabId = typeof id === "number" ? id : undefined;
+})();
+
+const App = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [textToSearch, setTextToSearch] = useState("");
   const [searchBarText, setSearchBarText] = useState("");
 
   useEffect(() => {
-    // debounce
+    // debounce search text
     const id = setTimeout(
       () =>
         setTextToSearch((previous) =>
@@ -22,21 +33,33 @@ const App = ({ unmount }: { unmount: () => void }) => {
     return () => clearTimeout(id);
   }, [searchBarText]);
 
-  const handleOnOpenChange = (open: boolean) => {
-    setIsOpen(open);
+  useEffect(() => {
+    // set up communication with the background script
+    browser.runtime.onMessage.addListener((message, _, sendResponse) => {
+      const result = ActionMessageSchema.safeParse(message);
 
-    if (!open) {
-      // send a message to the background script to unload injected css
-      browser.runtime.sendMessage("SHUT IT DOWN!!");
+      if (
+        !result.success ||
+        typeof runningTabId !== "number" ||
+        runningTabId !== result.data.tabId
+      ) {
+        console.log("received unknown (?) message:", message);
+        return;
+      }
 
-      // TODO: this might influence animations later, keep an eye on it
-      // unmount & remove dokodemo div
-      unmount();
-    }
-  };
+      setIsOpen(result.data.action === "open");
+
+      // reset search
+      setTextToSearch("");
+      setSearchBarText("");
+
+      // reply so the background script knows content is loaded on this tab
+      sendResponse("b-b-b-buffa" satisfies ActionResponse);
+    });
+  }, []);
 
   return (
-    <Modal open={isOpen} onOpenChange={handleOnOpenChange}>
+    <Modal open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <SearchBar
         placeholder="Search AniList"
         value={searchBarText}
