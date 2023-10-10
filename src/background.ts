@@ -4,6 +4,8 @@ import {
   FetchMessageSchema,
 } from "./content/schema/message";
 
+import { fetchQuery } from "./fetch";
+
 browser.contextMenus.create({
   id: "dokodemo-search",
   title: "Search Dokodemo Anilist",
@@ -43,16 +45,6 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
   }
 });
 
-const URL = "https://graphql.anilist.co";
-
-const OPTIONS = {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-} as const;
-
 browser.runtime.onMessage.addListener(async (message, sender) => {
   if (typeof sender.tab?.id !== "number") {
     return;
@@ -69,14 +61,5 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     return;
   }
 
-  const { query } = fetchMessage.data;
-
-  const response = await fetch(URL, {
-    ...OPTIONS,
-    body: JSON.stringify({ query }),
-  });
-
-  const data = await response.json();
-
-  return data;
+  return fetchQuery(fetchMessage.data.query);
 });
