@@ -4,7 +4,7 @@ import {
   FetchMessageSchema,
 } from "./content/schema/message";
 
-import { fetchQuery } from "./fetch";
+import { fetchImage, fetchQuery } from "./fetch";
 
 browser.contextMenus.create({
   id: "dokodemo-search",
@@ -12,6 +12,8 @@ browser.contextMenus.create({
 });
 
 browser.contextMenus.onClicked.addListener(async (info, tab) => {
+  browser.permissions.request({ origins: ["https://*.anilist.co/*"] });
+
   if (info.menuItemId !== "dokodemo-search" || typeof tab?.id !== "number") {
     return;
   }
@@ -61,5 +63,11 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     return;
   }
 
-  return fetchQuery(fetchMessage.data.query);
+  if (fetchMessage.data.type === "query") {
+    return fetchQuery(fetchMessage.data.query);
+  }
+
+  if (fetchMessage.data.type === "image") {
+    return fetchImage(fetchMessage.data.src);
+  }
 });

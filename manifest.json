@@ -14,5 +14,6 @@
     "gecko": {
       "id": "dokodemo-anilist@4ndrs"
     }
-  }
+  },
+  "host_permissions": ["https://*.anilist.co/*"]
 }

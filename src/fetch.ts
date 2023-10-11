@@ -1,18 +1,25 @@
-const URL = "https://graphql.anilist.co";
-
-const OPTIONS = {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-} as const;
-
 export const fetchQuery = async (query: string) => {
-  const response = await fetch(URL, {
-    ...OPTIONS,
+  const url = "https://graphql.anilist.co";
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
     body: JSON.stringify({ query }),
-  });
+  };
+
+  const response = await fetch(url, options);
 
   return response.json();
+};
+
+export const fetchImage = async (src: string) => {
+  const options = { headers: { Accept: "image/*" } };
+
+  const response = await fetch(src, options);
+  const blob = await response.blob();
+
+  return URL.createObjectURL(blob);
 };
