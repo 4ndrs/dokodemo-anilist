@@ -9,7 +9,7 @@ export const AnimeQuerySchema = z.object({
           id: z.number(),
           title: z.object({ romaji: z.string() }),
           format: z.union([z.string(), z.null()]),
-          startDate: z.object({ year: z.number() }),
+          startDate: z.object({ year: z.number().nullable() }),
           coverImage: z.object({ medium: z.string() }),
         }),
       ),
