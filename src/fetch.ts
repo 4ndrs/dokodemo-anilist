@@ -17,9 +17,7 @@ export const fetchQuery = async (query: string) => {
 
 export const fetchImage = async (src: string) => {
   const options = { headers: { Accept: "image/*" } };
-
   const response = await fetch(src, options);
-  const blob = await response.blob();
 
-  return URL.createObjectURL(blob);
+  return await response.blob();
 };

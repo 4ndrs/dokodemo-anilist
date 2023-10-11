@@ -93,14 +93,14 @@ const AnimeCard = ({ anime }: { anime: Anime }) => {
     const fetchImage = async () => {
       setIsLoading(true);
 
-      const imageUrl = await browser.runtime.sendMessage({
+      const blob = await browser.runtime.sendMessage({
         type: "image",
         src: anime.coverImage.medium,
       } as FetchMessageSchema);
 
       setIsLoading(false);
 
-      setImageUrl(imageUrl);
+      setImageUrl(URL.createObjectURL(blob));
     };
 
     fetchImage();
