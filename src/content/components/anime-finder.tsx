@@ -114,7 +114,7 @@ const AnimeCard = ({ anime }: { anime: Anime }) => {
       className="group flex items-center justify-start gap-3 px-5 pb-3 pt-[0.94rem] hover:bg-sky-400"
     >
       {isLoading ? (
-        <div className="h-10 w-10 animate-pulse bg-gray-400" />
+        <div className="h-10 w-10 animate-pulse rounded-[0.19rem] bg-gray-400" />
       ) : (
         <img
           alt={anime.title.romaji}
