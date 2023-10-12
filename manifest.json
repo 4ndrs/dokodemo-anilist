@@ -15,5 +15,11 @@
       "id": "dokodemo-anilist@4ndrs"
     }
   },
-  "host_permissions": ["https://*.anilist.co/*"]
+  "host_permissions": ["https://*.anilist.co/*"],
+  "web_accessible_resources": [
+    {
+      "resources": ["content/assets/*"],
+      "extension_ids": ["dokodemo-anilist@4ndrs"]
+    }
+  ]
 }

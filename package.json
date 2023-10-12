@@ -5,8 +5,9 @@
     "tailwind": "tailwindcss -i ./src/content/styles.css -o ./dist/content/styles.css",
     "tailwind:watch": "bun tailwind --watch",
     "manifest": "cp -v ./manifest.json './ˢᵐᵒᶫ ᵇᵒᶜᶜ.png' ./dist/",
+    "assets": "cp -vr ./src/content/assets ./dist/content/",
     "rollup": "rollup --config rollup.config.ts --configPlugin typescript",
-    "build": "rm -rf ./dist && bun rollup && bun manifest && bun tailwind"
+    "build": "rm -rf ./dist && bun rollup && bun manifest && bun assets && bun tailwind"
   },
   "prettier": {
     "plugins": [

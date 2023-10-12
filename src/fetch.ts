@@ -18,9 +18,20 @@ export const fetchQuery = async (query: string) => {
 export const fetchImage = async (src: string): Promise<string> => {
   const reader = new FileReader();
 
+  let blob;
+
   const options = { headers: { Accept: "image/*" } };
   const response = await fetch(src, options);
-  const blob = await response.blob();
+
+  if (response.ok) {
+    blob = await response.blob();
+  } else {
+    const placeholder = browser.runtime.getURL(
+      "content/assets/1535428962747.png",
+    );
+
+    blob = await (await fetch(placeholder)).blob();
+  }
 
   const promise = new Promise<string>((resolve) => {
     reader.onload = () =>
