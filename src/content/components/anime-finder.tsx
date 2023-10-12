@@ -96,7 +96,7 @@ const AnimeCard = ({ anime }: { anime: Anime }) => {
       const blob = await browser.runtime.sendMessage({
         type: "image",
         src: anime.coverImage.medium,
-      } as FetchMessageSchema);
+      } satisfies FetchMessageSchema);
 
       setIsLoading(false);
 
