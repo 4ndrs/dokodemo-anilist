@@ -1,3 +1,4 @@
+import { useImage } from "../hooks/images";
 import { useEffect, useState } from "react";
 import { AnimeResponseSchema } from "../schema/response";
 
@@ -86,25 +87,7 @@ const AnimeFinder = ({ text }: { text: string }) => {
 };
 
 const AnimeCard = ({ anime }: { anime: Anime }) => {
-  const [imageUrl, setImageUrl] = useState<string>();
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchImage = async () => {
-      setIsLoading(true);
-
-      const dataUrl = await browser.runtime.sendMessage({
-        type: "image",
-        src: anime.coverImage.medium,
-      } satisfies FetchMessageSchema);
-
-      setIsLoading(false);
-
-      setImageUrl(dataUrl);
-    };
-
-    fetchImage();
-  }, [anime.coverImage.medium]);
+  const { imageUrl, isLoading } = useImage(anime.coverImage.medium);
 
   return (
     <a
