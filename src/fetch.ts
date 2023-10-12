@@ -15,9 +15,19 @@ export const fetchQuery = async (query: string) => {
   return response.json();
 };
 
-export const fetchImage = async (src: string) => {
+export const fetchImage = async (src: string): Promise<string> => {
+  const reader = new FileReader();
+
   const options = { headers: { Accept: "image/*" } };
   const response = await fetch(src, options);
+  const blob = await response.blob();
 
-  return await response.blob();
+  const promise = new Promise<string>((resolve) => {
+    reader.onload = () =>
+      resolve(typeof reader.result === "string" ? reader.result : "");
+  });
+
+  reader.readAsDataURL(blob);
+
+  return promise;
 };
