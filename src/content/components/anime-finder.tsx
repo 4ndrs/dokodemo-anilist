@@ -106,11 +106,11 @@ const AnimeCard = ({ anime }: { anime: Anime }) => {
         />
       )}
 
-      <div className="flex flex-col justify-center gap-1">
-        <h2 className="text-ellipsis whitespace-nowrap text-[15px] font-semibold text-slate-500 group-hover:text-white">
+      <div className="flex max-w-[calc(100%-40px-4px)] flex-col justify-center gap-[4px]">
+        <h2 className="inline-block overflow-hidden text-ellipsis whitespace-nowrap text-[15px] font-semibold text-slate-500 group-hover:text-white">
           {anime.title.romaji}
         </h2>
-        <div className="text-ellipsis whitespace-nowrap text-[12px] font-medium text-slate-400 group-hover:text-slate-200">
+        <div className="text-[12px] font-medium text-slate-400 group-hover:text-slate-200">
           {anime.startDate.year} {anime.format}
         </div>
       </div>
