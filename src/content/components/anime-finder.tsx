@@ -7,6 +7,7 @@ import type { FetchMessageSchema } from "../schema/message";
 
 const AnimeFinder = ({ text }: { text: string }) => {
   const [animes, setAnimes] = useState<Anime[]>([]);
+  const [thereIsMore, setThereIsMore] = useState(false);
 
   useEffect(() => {
     if (!text) {
@@ -60,6 +61,7 @@ const AnimeFinder = ({ text }: { text: string }) => {
       }
 
       setAnimes(result.data.data.Page.media);
+      setThereIsMore(result.data.data.Page.pageInfo.hasNextPage);
     };
 
     cheerioooooooooo();
@@ -81,6 +83,19 @@ const AnimeFinder = ({ text }: { text: string }) => {
             <AnimeCard anime={anime} />
           </li>
         ))}
+
+        {thereIsMore && (
+          <li>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`https://anilist.co/search/anime?search=${text}&sort=SEARCH_MATCH`}
+              className="dokodemo-block dokodemo-w-full dokodemo-py-[10px] dokodemo-text-center dokodemo-text-[13px] dokodemo-font-semibold dokodemo-leading-[14px] dokodemo-text-slate-500 hover:dokodemo-bg-sky-400 hover:dokodemo-text-white"
+            >
+              View all anime results
+            </a>
+          </li>
+        )}
       </ul>
     </div>
   );
