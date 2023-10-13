@@ -1,9 +1,9 @@
 import { useImage } from "../hooks/images";
 import { useEffect, useState } from "react";
-import { MediaResponseSchema } from "../schema/response";
+import { MediaResponseSchema } from "../schemas/response";
 
-import type { Media } from "../schema/media";
-import type { FetchMessageSchema } from "../schema/message";
+import type { Media } from "../schemas/media";
+import type { FetchMessageSchema } from "../schemas/message";
 
 const MangaFinder = ({ text }: { text: string }) => {
   const [mangas, setMangas] = useState<Media[]>([]);

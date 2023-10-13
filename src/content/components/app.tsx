@@ -4,7 +4,7 @@ import AnimeFinder from "./anime-finder";
 import MangaFinder from "./manga-finder";
 
 import { useEffect, useState } from "react";
-import { ActionMessageSchema, type ActionResponse } from "../schema/message";
+import { ActionMessageSchema, type ActionResponse } from "../schemas/message";
 
 let runningTabId: number | undefined;
 

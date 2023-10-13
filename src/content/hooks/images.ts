@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import type { FetchMessageSchema } from "../schema/message";
+import type { FetchMessageSchema } from "../schemas/message";
 
 export const useImage = (src: string) => {
   const [imageUrl, setImageUrl] = useState<string>();

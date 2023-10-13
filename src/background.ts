@@ -2,7 +2,7 @@ import {
   type ActionResponse,
   type ActionMessageSchema,
   FetchMessageSchema,
-} from "./content/schema/message";
+} from "./content/schemas/message";
 
 import { fetchImage, fetchQuery } from "./fetch";
 
