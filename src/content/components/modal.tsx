@@ -11,7 +11,7 @@ const Modal = ({
 }) => (
   <Dialog.Root open={open} onOpenChange={onOpenChange}>
     <Dialog.Portal>
-      <Dialog.Overlay className="dokodemo-modal fixed inset-0 z-[2147483647] flex overflow-y-auto bg-black/60 font-sans">
+      <Dialog.Overlay className="dokodemo-modal dokodemo-fixed dokodemo-inset-0 dokodemo-z-[2147483647] dokodemo-flex dokodemo-overflow-y-auto dokodemo-bg-black/60 dokodemo-font-sans">
         <Dialog.Content
           onClick={({ target, currentTarget }) => {
             // close the modal if we click outside of any of the children
@@ -19,7 +19,7 @@ const Modal = ({
               onOpenChange(false);
             }
           }}
-          className="absolute left-1/2 grid w-full max-w-[calc(min(1696px,100vw)-(40px*2))] -translate-x-1/2 gap-[40px] px-[56px] py-[80px] leading-[20px] lg:grid-cols-2 2xl:grid-cols-3"
+          className="dokodemo-absolute dokodemo-left-1/2 dokodemo-grid dokodemo-w-full dokodemo-max-w-[calc(min(1696px,100vw)-(40px*2))] -dokodemo-translate-x-1/2 dokodemo-gap-[40px] dokodemo-px-[56px] dokodemo-py-[80px] dokodemo-leading-[20px] lg:dokodemo-grid-cols-2 2xl:dokodemo-grid-cols-3"
         >
           {children}
         </Dialog.Content>

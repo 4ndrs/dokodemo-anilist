@@ -70,12 +70,12 @@ const AnimeFinder = ({ text }: { text: string }) => {
   }
 
   return (
-    <div className="relative">
-      <h1 className="absolute -top-[28px] left-0 text-[14px] font-semibold text-slate-200">
+    <div className="dokodemo-relative">
+      <h1 className="dokodemo-absolute -dokodemo-top-[28px] dokodemo-left-0 dokodemo-text-[14px] dokodemo-font-semibold dokodemo-text-slate-200">
         Anime
       </h1>
 
-      <ul className="overflow-hidden rounded-md bg-white">
+      <ul className="dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
         {animes.map((anime) => (
           <li key={anime.id}>
             <AnimeCard anime={anime} />
@@ -94,23 +94,23 @@ const AnimeCard = ({ anime }: { anime: Anime }) => {
       href={`https://anilist.co/anime/${anime.id}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-center justify-start gap-[12px] px-[20px] pb-[12px] pt-[15px] hover:bg-sky-400"
+      className="dokodemo-group dokodemo-flex dokodemo-items-center dokodemo-justify-start dokodemo-gap-[12px] dokodemo-px-[20px] dokodemo-pb-[12px] dokodemo-pt-[15px] hover:dokodemo-bg-sky-400"
     >
       {isLoading ? (
-        <div className="h-[40px] w-[40px] animate-pulse rounded-[3px] bg-gray-400" />
+        <div className="dokodemo-h-[40px] dokodemo-w-[40px] dokodemo-animate-pulse dokodemo-rounded-[3px] dokodemo-bg-gray-400" />
       ) : (
         <img
           alt={anime.title.romaji}
           src={imageUrl}
-          className="h-[40px] w-[40px] flex-shrink-0 rounded-[3px] object-cover"
+          className="dokodemo-h-[40px] dokodemo-w-[40px] dokodemo-shrink-0 dokodemo-rounded-[3px] dokodemo-object-cover"
         />
       )}
 
-      <div className="flex max-w-[calc(100%-40px-4px)] flex-col justify-center gap-[4px]">
-        <h2 className="inline-block overflow-hidden text-ellipsis whitespace-nowrap text-[15px] font-semibold text-slate-500 group-hover:text-white">
+      <div className="dokodemo-flex dokodemo-max-w-[calc(100%-40px-4px)] dokodemo-flex-col dokodemo-justify-center dokodemo-gap-[4px]">
+        <h2 className="dokodemo-inline-block dokodemo-truncate dokodemo-text-[15px] dokodemo-font-semibold dokodemo-text-slate-500 group-hover:dokodemo-text-white">
           {anime.title.romaji}
         </h2>
-        <div className="text-[12px] font-medium text-slate-400 group-hover:text-slate-200">
+        <div className="dokodemo-text-[12px] dokodemo-font-medium dokodemo-text-slate-400 group-hover:dokodemo-text-slate-200">
           {anime.startDate.year} {anime.format}
         </div>
       </div>

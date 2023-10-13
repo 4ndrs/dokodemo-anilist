@@ -10,4 +10,5 @@ export default {
     preflight: false,
   },
   important: true,
+  prefix: "dokodemo-",
 } satisfies Config;
