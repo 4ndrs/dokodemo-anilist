@@ -1,6 +1,7 @@
 import Modal from "./modal";
 import SearchBar from "./search-bar";
 import AnimeFinder from "./anime-finder";
+import MangaFinder from "./manga-finder";
 
 import { useEffect, useState } from "react";
 import { ActionMessageSchema, type ActionResponse } from "../schema/message";
@@ -67,6 +68,7 @@ const App = () => {
       />
 
       <AnimeFinder text={textToSearch} />
+      <MangaFinder text={textToSearch} />
     </Modal>
   );
 };

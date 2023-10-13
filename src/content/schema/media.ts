@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const AnimeQuerySchema = z.object({
+export const MediaQuerySchema = z.object({
   data: z.object({
     Page: z.object({
       pageInfo: z.object({ hasNextPage: z.boolean() }),
@@ -17,5 +17,5 @@ export const AnimeQuerySchema = z.object({
   }),
 });
 
-export type AnimeQuerySchema = z.infer<typeof AnimeQuerySchema>;
-export type Anime = AnimeQuerySchema["data"]["Page"]["media"][number];
+export type MediaQuerySchema = z.infer<typeof MediaQuerySchema>;
+export type Media = MediaQuerySchema["data"]["Page"]["media"][number];

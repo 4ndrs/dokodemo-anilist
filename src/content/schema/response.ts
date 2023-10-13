@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { AnimeQuerySchema } from "./anime";
+import { MediaQuerySchema } from "./media";
 import { ErrorQuerySchema } from "./error";
 
-export const AnimeResponseSchema = z.union([
-  AnimeQuerySchema,
+export const MediaResponseSchema = z.union([
+  MediaQuerySchema,
   ErrorQuerySchema,
 ]);
