@@ -19,7 +19,7 @@ const Modal = ({
               onOpenChange(false);
             }
           }}
-          className="absolute left-1/2 grid w-full max-w-[calc(min(1696px,100vw)-(40px*2))] -translate-x-1/2 gap-[40px] px-[56px] py-[80px] lg:grid-cols-2 2xl:grid-cols-3"
+          className="absolute left-1/2 grid w-full max-w-[calc(min(1696px,100vw)-(40px*2))] -translate-x-1/2 gap-[40px] px-[56px] py-[80px] leading-[20px] lg:grid-cols-2 2xl:grid-cols-3"
         >
           {children}
         </Dialog.Content>
