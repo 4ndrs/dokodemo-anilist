@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "lint": "eslint ./src",
-    "tailwind": "tailwindcss -i ./src/content/styles.css -o ./dist/content/styles.css",
+    "tailwind": "tailwindcss -i ./src/content/dokodemo-anilist.css -o ./dist/content/dokodemo-anilist.css",
     "tailwind:watch": "bun tailwind --watch",
     "manifest": "cp -v ./manifest.json './ˢᵐᵒᶫ ᵇᵒᶜᶜ.png' ./dist/",
     "assets": "cp -vr ./src/content/assets ./dist/content/",

@@ -37,7 +37,7 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
 
     browser.scripting.insertCSS({
       target: { tabId: tab.id },
-      files: ["content/styles.css"],
+      files: ["content/dokodemo-anilist.css"],
     });
 
     browser.scripting.executeScript({
