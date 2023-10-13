@@ -16,6 +16,63 @@
   text-decoration: unset;
 }
 
+.dokodemo-content {
+  --testing: 1;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.dokodemo-modal[data-state="open"] {
+  animation: dokodemo-fade-in 300ms ease-out;
+}
+
+.dokodemo-modal[data-state="closed"],
+.dokodemo-content[data-state="closed"] {
+  animation: dokodemo-fade-out 200ms ease-in;
+}
+
+.dokodemo-content[data-state="open"] {
+  animation: dokodemo-slide-in 150ms ease-in-out;
+}
+
+.dokodemo-content[data-state="closed"] {
+  animation: dokodemo-slide-out 150ms ease-in-out;
+}
+
+@keyframes dokodemo-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dokodemo-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes dokodemo-slide-in {
+  from {
+    top: -70px;
+  }
+  to {
+    top: 0;
+  }
+}
+
+@keyframes dokodemo-slide-out {
+  from {
+    top: 0;
+  }
+  to {
+    top: -70px;
+  }
+}

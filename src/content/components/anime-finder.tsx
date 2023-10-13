@@ -90,7 +90,7 @@ const AnimeFinder = ({ text }: { text: string }) => {
               target="_blank"
               rel="noopener noreferrer"
               href={`https://anilist.co/search/anime?search=${text}&sort=SEARCH_MATCH`}
-              className="dokodemo-block dokodemo-w-full dokodemo-py-[10px] dokodemo-text-center dokodemo-text-[13px] dokodemo-font-semibold dokodemo-leading-[14px] dokodemo-text-slate-500 hover:dokodemo-bg-sky-400 hover:dokodemo-text-white"
+              className="dokodemo-block dokodemo-w-full dokodemo-py-[10px] dokodemo-text-center dokodemo-text-[13px] dokodemo-font-semibold dokodemo-leading-[14px] dokodemo-text-slate-500 dokodemo-transition-colors hover:dokodemo-bg-sky-400 hover:dokodemo-text-white"
             >
               View all anime results
             </a>
@@ -109,7 +109,7 @@ const AnimeCard = ({ anime }: { anime: Anime }) => {
       href={`https://anilist.co/anime/${anime.id}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="dokodemo-group dokodemo-flex dokodemo-items-center dokodemo-justify-start dokodemo-gap-[12px] dokodemo-px-[20px] dokodemo-pb-[12px] dokodemo-pt-[15px] hover:dokodemo-bg-sky-400"
+      className="dokodemo-group dokodemo-flex dokodemo-items-center dokodemo-justify-start dokodemo-gap-[12px] dokodemo-px-[20px] dokodemo-pb-[12px] dokodemo-pt-[15px] dokodemo-transition-colors hover:dokodemo-bg-sky-400"
     >
       {isLoading ? (
         <div className="dokodemo-h-[40px] dokodemo-w-[40px] dokodemo-animate-pulse dokodemo-rounded-[3px] dokodemo-bg-gray-400" />

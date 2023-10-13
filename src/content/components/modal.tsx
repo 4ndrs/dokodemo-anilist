@@ -19,7 +19,7 @@ const Modal = ({
               onOpenChange(false);
             }
           }}
-          className="dokodemo-absolute dokodemo-left-1/2 dokodemo-grid dokodemo-w-full dokodemo-max-w-[calc(min(1696px,100vw)-(40px*2))] -dokodemo-translate-x-1/2 dokodemo-gap-[40px] dokodemo-px-[56px] dokodemo-py-[80px] dokodemo-leading-[20px] lg:dokodemo-grid-cols-2 2xl:dokodemo-grid-cols-3"
+          className="dokodemo-content dokodemo-absolute dokodemo-left-1/2 dokodemo-grid dokodemo-w-full dokodemo-max-w-[calc(min(1696px,100vw)-(40px*2))] -dokodemo-translate-x-1/2 dokodemo-gap-[40px] dokodemo-px-[56px] dokodemo-py-[80px] dokodemo-leading-[20px] lg:dokodemo-grid-cols-2 2xl:dokodemo-grid-cols-3"
         >
           {children}
         </Dialog.Content>
