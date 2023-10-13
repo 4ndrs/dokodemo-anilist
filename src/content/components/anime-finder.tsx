@@ -71,7 +71,7 @@ const AnimeFinder = ({ text }: { text: string }) => {
 
   return (
     <div className="relative">
-      <h1 className="absolute -top-7 left-0 text-sm font-semibold text-slate-200">
+      <h1 className="absolute -top-[28px] left-0 text-[14px] font-semibold text-slate-200">
         Anime
       </h1>
 
@@ -94,23 +94,23 @@ const AnimeCard = ({ anime }: { anime: Anime }) => {
       href={`https://anilist.co/anime/${anime.id}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-center justify-start gap-3 px-5 pb-3 pt-[0.94rem] hover:bg-sky-400"
+      className="group flex items-center justify-start gap-[12px] px-[20px] pb-[12px] pt-[15px] hover:bg-sky-400"
     >
       {isLoading ? (
-        <div className="h-10 w-10 animate-pulse rounded-[0.19rem] bg-gray-400" />
+        <div className="h-[40px] w-[40px] animate-pulse rounded-[3px] bg-gray-400" />
       ) : (
         <img
           alt={anime.title.romaji}
           src={imageUrl}
-          className="h-10 w-10 flex-shrink-0 rounded-[0.19rem] object-cover"
+          className="h-[40px] w-[40px] flex-shrink-0 rounded-[3px] object-cover"
         />
       )}
 
       <div className="flex flex-col justify-center gap-1">
-        <h2 className="text-ellipsis whitespace-nowrap text-[0.94rem] font-semibold text-slate-500 group-hover:text-white">
+        <h2 className="text-ellipsis whitespace-nowrap text-[15px] font-semibold text-slate-500 group-hover:text-white">
           {anime.title.romaji}
         </h2>
-        <div className="text-ellipsis whitespace-nowrap text-xs font-medium text-slate-400 group-hover:text-slate-200">
+        <div className="text-ellipsis whitespace-nowrap text-[12px] font-medium text-slate-400 group-hover:text-slate-200">
           {anime.startDate.year} {anime.format}
         </div>
       </div>
