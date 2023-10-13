@@ -5,7 +5,7 @@ const SearchBar = (props: React.ComponentProps<"input">) => (
     <MagnifyingGlassIcon className="h-full w-[56px] px-[20px] text-slate-700" />
     <input
       {...props}
-      className="h-full flex-1 border-none text-[15px] font-semibold text-slate-500 placeholder-slate-400"
+      className="h-full flex-1 border-none bg-white text-[15px] font-semibold text-slate-500 placeholder-slate-400"
     />
     <Cross2Icon className="h-full w-[56px] px-[20px] text-slate-700" />
   </div>
