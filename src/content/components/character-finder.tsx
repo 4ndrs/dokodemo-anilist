@@ -5,7 +5,9 @@ import { CharacterResponseSchema } from "../schemas/response";
 import type { Character } from "../schemas/character";
 import type { FetchMessageSchema } from "../schemas/message";
 
-const CharacterFinder = ({ text }: { text: string }) => {
+type Props = { text: string; onLoadingChange: (loading: boolean) => void };
+
+const CharacterFinder = ({ text, onLoadingChange }: Props) => {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [thereIsMore, setThereIsMore] = useState(false);
 
@@ -36,10 +38,14 @@ const CharacterFinder = ({ text }: { text: string }) => {
     `;
 
     const cheerioooooooooo = async () => {
+      onLoadingChange(true);
+
       const data = await browser.runtime.sendMessage({
         type: "query",
         query,
       } satisfies FetchMessageSchema);
+
+      onLoadingChange(false);
 
       const result = CharacterResponseSchema.safeParse(data);
 
@@ -61,7 +67,7 @@ const CharacterFinder = ({ text }: { text: string }) => {
     };
 
     cheerioooooooooo();
-  }, [text]);
+  }, [text, onLoadingChange]);
 
   if (characters.length < 1) {
     return;

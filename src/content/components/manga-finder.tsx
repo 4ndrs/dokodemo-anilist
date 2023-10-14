@@ -5,7 +5,9 @@ import { MediaResponseSchema } from "../schemas/response";
 import type { Media } from "../schemas/media";
 import type { FetchMessageSchema } from "../schemas/message";
 
-const MangaFinder = ({ text }: { text: string }) => {
+type Props = { text: string; onLoadingChange: (loading: boolean) => void };
+
+const MangaFinder = ({ text, onLoadingChange }: Props) => {
   const [mangas, setMangas] = useState<Media[]>([]);
   const [thereIsMore, setThereIsMore] = useState(false);
 
@@ -40,10 +42,14 @@ const MangaFinder = ({ text }: { text: string }) => {
     `;
 
     const cheerioooooooooo = async () => {
+      onLoadingChange(true);
+
       const data = await browser.runtime.sendMessage({
         type: "query",
         query,
       } satisfies FetchMessageSchema);
+
+      onLoadingChange(false);
 
       const result = MediaResponseSchema.safeParse(data);
 
@@ -65,7 +71,7 @@ const MangaFinder = ({ text }: { text: string }) => {
     };
 
     cheerioooooooooo();
-  }, [text]);
+  }, [text, onLoadingChange]);
 
   if (mangas.length < 1) {
     return;

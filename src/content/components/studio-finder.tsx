@@ -4,7 +4,9 @@ import { StudioResponseSchema } from "../schemas/response";
 import type { FetchMessageSchema } from "../schemas/message";
 import type { Studio } from "../schemas/studio";
 
-const StudioFinder = ({ text }: { text: string }) => {
+type Props = { text: string; onLoadingChange: (loading: boolean) => void };
+
+const StudioFinder = ({ text, onLoadingChange }: Props) => {
   const [studios, setStudios] = useState<Studio[]>([]);
   const [thereIsMore, setThereIsMore] = useState(false);
 
@@ -30,10 +32,14 @@ const StudioFinder = ({ text }: { text: string }) => {
     `;
 
     const cheerioooooooooo = async () => {
+      onLoadingChange(true);
+
       const data = await browser.runtime.sendMessage({
         type: "query",
         query,
       } satisfies FetchMessageSchema);
+
+      onLoadingChange(false);
 
       const result = StudioResponseSchema.safeParse(data);
 
@@ -55,7 +61,7 @@ const StudioFinder = ({ text }: { text: string }) => {
     };
 
     cheerioooooooooo();
-  }, [text]);
+  }, [text, onLoadingChange]);
 
   if (studios.length < 1) {
     return;

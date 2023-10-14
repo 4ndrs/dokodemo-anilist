@@ -6,7 +6,7 @@ import MangaFinder from "./manga-finder";
 import StudioFinder from "./studio-finder";
 import CharacterFinder from "./character-finder";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ActionMessageSchema, type ActionResponse } from "../schemas/message";
 
 let runningTabId: number | undefined;
@@ -23,6 +23,14 @@ const App = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [textToSearch, setTextToSearch] = useState("");
   const [searchBarText, setSearchBarText] = useState("");
+
+  const [isLoading, setIsLoading] = useState({
+    anime: false,
+    manga: false,
+    characters: false,
+    staff: false,
+    studios: false,
+  });
 
   useEffect(() => {
     // debounce search text
@@ -62,19 +70,69 @@ const App = () => {
     });
   }, []);
 
+  const handleAnimeLoadingChange = useCallback(
+    (loading: boolean) =>
+      setIsLoading((previous) => ({ ...previous, anime: loading })),
+    [],
+  );
+
+  const handleMangaLoadingChange = useCallback(
+    (loading: boolean) =>
+      setIsLoading((previous) => ({ ...previous, manga: loading })),
+    [],
+  );
+
+  const handleCharactersLoadingChange = useCallback(
+    (loading: boolean) =>
+      setIsLoading((previous) => ({ ...previous, characters: loading })),
+    [],
+  );
+
+  const handleStaffLoadingChange = useCallback(
+    (loading: boolean) =>
+      setIsLoading((previous) => ({ ...previous, staff: loading })),
+    [],
+  );
+
+  const handleStudiosLoadingChange = useCallback(
+    (loading: boolean) =>
+      setIsLoading((previous) => ({ ...previous, studios: loading })),
+    [],
+  );
+
   return (
     <Modal open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <SearchBar
         placeholder="Search AniList"
         value={searchBarText}
         onChange={({ target: { value } }) => setSearchBarText(value)}
+        isLoading={Object.values(isLoading).some((loading) => loading)}
       />
 
-      <AnimeFinder text={textToSearch} />
-      <MangaFinder text={textToSearch} />
-      <CharacterFinder text={textToSearch} />
-      <StaffFinder text={textToSearch} />
-      <StudioFinder text={textToSearch} />
+      <AnimeFinder
+        text={textToSearch}
+        onLoadingChange={handleAnimeLoadingChange}
+      />
+
+      <MangaFinder
+        text={textToSearch}
+        onLoadingChange={handleMangaLoadingChange}
+      />
+
+      <CharacterFinder
+        text={textToSearch}
+        onLoadingChange={handleCharactersLoadingChange}
+      />
+
+      <StaffFinder
+        text={textToSearch}
+        onLoadingChange={handleStaffLoadingChange}
+      />
+
+      <StudioFinder
+        text={textToSearch}
+        onLoadingChange={handleStudiosLoadingChange}
+      />
     </Modal>
   );
 };

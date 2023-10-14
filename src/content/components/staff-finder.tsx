@@ -5,7 +5,9 @@ import { StaffResponseSchema } from "../schemas/response";
 import type { Staff } from "../schemas/staff";
 import type { FetchMessageSchema } from "../schemas/message";
 
-const StaffFinder = ({ text }: { text: string }) => {
+type Props = { text: string; onLoadingChange: (loading: boolean) => void };
+
+const StaffFinder = ({ text, onLoadingChange }: Props) => {
   const [staff, setStaff] = useState<Staff[]>([]);
   const [thereIsMore, setThereIsMore] = useState(false);
 
@@ -36,10 +38,14 @@ const StaffFinder = ({ text }: { text: string }) => {
     `;
 
     const cheerioooooooooo = async () => {
+      onLoadingChange(true);
+
       const data = await browser.runtime.sendMessage({
         type: "query",
         query,
       } satisfies FetchMessageSchema);
+
+      onLoadingChange(false);
 
       const result = StaffResponseSchema.safeParse(data);
 
@@ -61,7 +67,7 @@ const StaffFinder = ({ text }: { text: string }) => {
     };
 
     cheerioooooooooo();
-  }, [text]);
+  }, [text, onLoadingChange]);
 
   if (staff.length < 1) {
     return;
