@@ -31,7 +31,7 @@ const App = () => {
         setTextToSearch((previous) =>
           previous.trim() === searchBarText.trim() ? previous : searchBarText,
         ),
-      500,
+      800,
     );
 
     return () => clearTimeout(id);
