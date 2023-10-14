@@ -73,7 +73,7 @@ const CharacterFinder = ({ text }: { text: string }) => {
         Characters
       </h1>
 
-      <ul className="dokodemo-min-h-full dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
+      <ul className="dokodemo-flex dokodemo-min-h-full dokodemo-flex-col dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
         {characters.map((character) => (
           <li key={character.id}>
             <CharacterCard character={character} />
@@ -81,7 +81,7 @@ const CharacterFinder = ({ text }: { text: string }) => {
         ))}
 
         {thereIsMore && (
-          <li>
+          <li className="dokodemo-mb-0 dokodemo-mt-auto">
             <a
               target="_blank"
               rel="noopener noreferrer"
