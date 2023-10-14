@@ -1,7 +1,7 @@
 import { Cross2Icon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
 const SearchBar = (props: React.ComponentProps<"input">) => (
-  <div className="dokodemo-mb-[12px] dokodemo-flex dokodemo-h-[56px] dokodemo-w-[688px] dokodemo-max-w-full dokodemo-items-center dokodemo-place-self-center dokodemo-overflow-hidden dokodemo-rounded-[6px] dokodemo-bg-white lg:dokodemo-col-span-2 2xl:dokodemo-col-span-3">
+  <div className="dokodemo-mb-[12px] dokodemo-flex dokodemo-h-[56px] dokodemo-w-full dokodemo-max-w-[688px] dokodemo-items-center  dokodemo-place-self-center dokodemo-overflow-hidden dokodemo-rounded-[6px] dokodemo-bg-white lg:dokodemo-col-span-2 2xl:dokodemo-col-span-3">
     <MagnifyingGlassIcon className="dokodemo-h-full dokodemo-w-[56px] dokodemo-px-[20px] dokodemo-text-slate-700" />
     <input
       {...props}
