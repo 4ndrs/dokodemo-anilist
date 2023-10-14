@@ -3,6 +3,7 @@ import SearchBar from "./search-bar";
 import StaffFinder from "./staff-finder";
 import AnimeFinder from "./anime-finder";
 import MangaFinder from "./manga-finder";
+import StudioFinder from "./studio-finder";
 import CharacterFinder from "./character-finder";
 
 import { useEffect, useState } from "react";
@@ -73,6 +74,7 @@ const App = () => {
       <MangaFinder text={textToSearch} />
       <CharacterFinder text={textToSearch} />
       <StaffFinder text={textToSearch} />
+      <StudioFinder text={textToSearch} />
     </Modal>
   );
 };
