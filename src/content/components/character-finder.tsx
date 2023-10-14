@@ -73,7 +73,7 @@ const CharacterFinder = ({ text }: { text: string }) => {
         Characters
       </h1>
 
-      <ul className="dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
+      <ul className="dokodemo-min-h-full dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
         {characters.map((character) => (
           <li key={character.id}>
             <CharacterCard character={character} />

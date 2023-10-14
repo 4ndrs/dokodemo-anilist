@@ -77,7 +77,7 @@ const AnimeFinder = ({ text }: { text: string }) => {
         Anime
       </h1>
 
-      <ul className="dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
+      <ul className="dokodemo-min-h-full dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
         {animes.map((anime) => (
           <li key={anime.id}>
             <AnimeCard anime={anime} />

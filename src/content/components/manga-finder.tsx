@@ -77,7 +77,7 @@ const MangaFinder = ({ text }: { text: string }) => {
         Manga
       </h1>
 
-      <ul className="dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
+      <ul className="dokodemo-min-h-full dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
         {mangas.map((manga) => (
           <li key={manga.id}>
             <MangaCard manga={manga} />

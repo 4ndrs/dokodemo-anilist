@@ -73,7 +73,7 @@ const StaffFinder = ({ text }: { text: string }) => {
         Staff
       </h1>
 
-      <ul className="dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
+      <ul className="dokodemo-min-h-full dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
         {staff.map((staff) => (
           <li key={staff.id}>
             <StaffCard staff={staff} />

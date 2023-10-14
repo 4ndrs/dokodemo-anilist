@@ -67,7 +67,7 @@ const StudioFinder = ({ text }: { text: string }) => {
         Studios
       </h1>
 
-      <ul className="dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
+      <ul className="dokodemo-min-h-full dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
         {studios.map((studio) => (
           <li key={studio.id}>
             <StudioCard studio={studio} />
