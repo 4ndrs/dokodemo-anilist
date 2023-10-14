@@ -22,6 +22,7 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
     const response = await browser.tabs.sendMessage(tab.id, {
       action: "open",
       tabId: tab.id,
+      text: info.selectionText,
     } satisfies ActionMessageSchema);
 
     console.log("response:", response);
@@ -52,7 +53,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     return;
   }
 
-  if (message === "gimme-tab-id" && typeof sender.tab?.id === "number") {
+  if (message === "gimme-tab-id") {
     console.log("content script requested id, sent id", sender.tab.id);
     return sender.tab.id;
   }

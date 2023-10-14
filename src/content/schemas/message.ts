@@ -1,9 +1,16 @@
 import { z } from "zod";
 
-export const ActionMessageSchema = z.object({
-  action: z.enum(["open", "close"]),
-  tabId: z.number(),
-});
+export const ActionMessageSchema = z.union([
+  z.object({
+    action: z.literal("open"),
+    tabId: z.number(),
+    text: z.string().optional(),
+  }),
+  z.object({
+    action: z.literal("close"),
+    tabId: z.number(),
+  }),
+]);
 
 const QueryMessageSchema = z.object({
   type: z.literal("query"),

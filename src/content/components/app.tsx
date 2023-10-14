@@ -19,10 +19,12 @@ let runningTabId: number | undefined;
   runningTabId = typeof id === "number" ? id : undefined;
 })();
 
+const initialValue = document.getSelection()?.toString() ?? "";
+
 const App = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [textToSearch, setTextToSearch] = useState("");
-  const [searchBarText, setSearchBarText] = useState("");
+  const [textToSearch, setTextToSearch] = useState(initialValue);
+  const [searchBarText, setSearchBarText] = useState(initialValue);
 
   const [isLoading, setIsLoading] = useState({
     anime: false,
@@ -59,11 +61,18 @@ const App = () => {
         return;
       }
 
-      setIsOpen(result.data.action === "open");
+      if (result.data.action === "close") {
+        setIsOpen(false);
+        return;
+      }
 
-      // reset search
-      setTextToSearch("");
-      setSearchBarText("");
+      setIsOpen(true);
+
+      // reset search or set to the selected text if any
+      const text = result.data.text ?? "";
+
+      setTextToSearch(text);
+      setSearchBarText(text);
 
       // reply so the background script knows content is loaded on this tab
       sendResponse("b-b-b-buffa" satisfies ActionResponse);
