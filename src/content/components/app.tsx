@@ -1,5 +1,6 @@
 import Modal from "./modal";
 import SearchBar from "./search-bar";
+import StaffFinder from "./staff-finder";
 import AnimeFinder from "./anime-finder";
 import MangaFinder from "./manga-finder";
 import CharacterFinder from "./character-finder";
@@ -71,6 +72,7 @@ const App = () => {
       <AnimeFinder text={textToSearch} />
       <MangaFinder text={textToSearch} />
       <CharacterFinder text={textToSearch} />
+      <StaffFinder text={textToSearch} />
     </Modal>
   );
 };
