@@ -1,74 +1,14 @@
 import { useImage } from "../hooks/images";
-import { useEffect, useState } from "react";
-import { StaffResponseSchema } from "../schemas/response";
 
-import type { Staff } from "../schemas/staff";
-import type { FetchMessageSchema } from "../schemas/message";
+import type { Staff } from "../schemas";
 
-type Props = { text: string; onLoadingChange: (loading: boolean) => void };
+type Props = {
+  staff: Staff[];
+  thereIsMore: boolean;
+  searchText: string;
+};
 
-const StaffFinder = ({ text, onLoadingChange }: Props) => {
-  const [staff, setStaff] = useState<Staff[]>([]);
-  const [thereIsMore, setThereIsMore] = useState(false);
-
-  useEffect(() => {
-    if (!text) {
-      setStaff([]);
-
-      return;
-    }
-
-    const query = `
-      {
-        Page (page:1, perPage: 8) {
-          pageInfo {
-            hasNextPage
-          }
-          staff (search: "${text}") {
-            id
-            name {
-              full
-            }
-            image {
-              medium
-            }
-          }
-        }
-      }
-    `;
-
-    const cheerioooooooooo = async () => {
-      onLoadingChange(true);
-
-      const data = await browser.runtime.sendMessage({
-        type: "query",
-        query,
-      } satisfies FetchMessageSchema);
-
-      onLoadingChange(false);
-
-      const result = StaffResponseSchema.safeParse(data);
-
-      if (!result.success) {
-        console.error(
-          "something happened, data seems different from the schema:",
-          data,
-        );
-        return;
-      }
-
-      if (!result.data.data) {
-        console.error(result.data.errors);
-        return;
-      }
-
-      setStaff(result.data.data.Page.staff);
-      setThereIsMore(result.data.data.Page.pageInfo.hasNextPage);
-    };
-
-    cheerioooooooooo();
-  }, [text, onLoadingChange]);
-
+const StaffList = ({ staff, thereIsMore, searchText: text }: Props) => {
   if (staff.length < 1) {
     return;
   }
@@ -127,9 +67,12 @@ const StaffCard = ({ staff }: { staff: Staff }) => {
         <h2 className="dokodemo-inline-block dokodemo-truncate dokodemo-text-[15px] dokodemo-font-semibold dokodemo-text-slate-500 group-hover:dokodemo-text-white">
           {staff.name.full}
         </h2>
+        <div className="dokodemo-text-[12px] dokodemo-font-medium dokodemo-capitalize dokodemo-text-slate-400 group-hover:dokodemo-text-slate-200">
+          {staff.primaryOccupations.join(", ")}
+        </div>
       </div>
     </a>
   );
 };
 
-export default StaffFinder;
+export default StaffList;

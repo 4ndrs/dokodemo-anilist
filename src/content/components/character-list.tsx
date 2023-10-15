@@ -1,74 +1,18 @@
 import { useImage } from "../hooks/images";
-import { useEffect, useState } from "react";
-import { CharacterResponseSchema } from "../schemas/response";
 
-import type { Character } from "../schemas/character";
-import type { FetchMessageSchema } from "../schemas/message";
+import type { Character } from "../schemas";
 
-type Props = { text: string; onLoadingChange: (loading: boolean) => void };
+type Props = {
+  characters: Character[];
+  thereIsMore: boolean;
+  searchText: string;
+};
 
-const CharacterFinder = ({ text, onLoadingChange }: Props) => {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [thereIsMore, setThereIsMore] = useState(false);
-
-  useEffect(() => {
-    if (!text) {
-      setCharacters([]);
-
-      return;
-    }
-
-    const query = `
-      {
-        Page (page:1, perPage: 8) {
-          pageInfo {
-            hasNextPage
-          }
-          characters (search: "${text}") {
-            id
-            name {
-              full
-            }
-            image {
-              medium
-            }
-          }
-        }
-      }
-    `;
-
-    const cheerioooooooooo = async () => {
-      onLoadingChange(true);
-
-      const data = await browser.runtime.sendMessage({
-        type: "query",
-        query,
-      } satisfies FetchMessageSchema);
-
-      onLoadingChange(false);
-
-      const result = CharacterResponseSchema.safeParse(data);
-
-      if (!result.success) {
-        console.error(
-          "something happened, data seems different from the schema:",
-          data,
-        );
-        return;
-      }
-
-      if (!result.data.data) {
-        console.error(result.data.errors);
-        return;
-      }
-
-      setCharacters(result.data.data.Page.characters);
-      setThereIsMore(result.data.data.Page.pageInfo.hasNextPage);
-    };
-
-    cheerioooooooooo();
-  }, [text, onLoadingChange]);
-
+const CharacterList = ({
+  characters,
+  thereIsMore,
+  searchText: text,
+}: Props) => {
   if (characters.length < 1) {
     return;
   }
@@ -132,4 +76,4 @@ const CharacterCard = ({ character }: { character: Character }) => {
   );
 };
 
-export default CharacterFinder;
+export default CharacterList;

@@ -1,79 +1,15 @@
 import { useImage } from "../hooks/images";
-import { useEffect, useState } from "react";
-import { MediaResponseSchema } from "../schemas/response";
 
-import type { Media } from "../schemas/media";
-import type { FetchMessageSchema } from "../schemas/message";
+import type { Anime } from "../schemas";
 
-type Props = { text: string; onLoadingChange: (loading: boolean) => void };
+type Props = {
+  anime: Anime[];
+  thereIsMore: boolean;
+  searchText: string;
+};
 
-const AnimeFinder = ({ text, onLoadingChange }: Props) => {
-  const [animes, setAnimes] = useState<Media[]>([]);
-  const [thereIsMore, setThereIsMore] = useState(false);
-
-  useEffect(() => {
-    if (!text) {
-      setAnimes([]);
-
-      return;
-    }
-
-    const query = `
-      {
-        Page (page:1, perPage: 8) {
-          pageInfo {
-            hasNextPage
-          }
-          media (type: ANIME, search: "${text}") {
-            id
-            title {
-              romaji
-            }
-            format
-            startDate {
-              year
-            }
-            coverImage {
-              medium
-            }
-          }
-        }
-      }
-    `;
-
-    const cheerioooooooooo = async () => {
-      onLoadingChange(true);
-
-      const data = await browser.runtime.sendMessage({
-        type: "query",
-        query,
-      } satisfies FetchMessageSchema);
-
-      onLoadingChange(false);
-
-      const result = MediaResponseSchema.safeParse(data);
-
-      if (!result.success) {
-        console.error(
-          "something happened, data seems different from the schema:",
-          data,
-        );
-        return;
-      }
-
-      if (!result.data.data) {
-        console.error(result.data.errors);
-        return;
-      }
-
-      setAnimes(result.data.data.Page.media);
-      setThereIsMore(result.data.data.Page.pageInfo.hasNextPage);
-    };
-
-    cheerioooooooooo();
-  }, [text, onLoadingChange]);
-
-  if (animes.length < 1) {
+const AnimeList = ({ anime, thereIsMore, searchText: text }: Props) => {
+  if (anime.length < 1) {
     return;
   }
 
@@ -84,7 +20,7 @@ const AnimeFinder = ({ text, onLoadingChange }: Props) => {
       </h1>
 
       <ul className="dokodemo-flex dokodemo-min-h-full dokodemo-flex-col dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
-        {animes.map((anime) => (
+        {anime.map((anime) => (
           <li key={anime.id}>
             <AnimeCard anime={anime} />
           </li>
@@ -107,7 +43,7 @@ const AnimeFinder = ({ text, onLoadingChange }: Props) => {
   );
 };
 
-const AnimeCard = ({ anime }: { anime: Media }) => {
+const AnimeCard = ({ anime }: { anime: Anime }) => {
   const { imageUrl, isLoading } = useImage(anime.coverImage.medium);
 
   return (
@@ -139,4 +75,4 @@ const AnimeCard = ({ anime }: { anime: Media }) => {
   );
 };
 
-export default AnimeFinder;
+export default AnimeList;

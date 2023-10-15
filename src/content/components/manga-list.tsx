@@ -1,79 +1,15 @@
 import { useImage } from "../hooks/images";
-import { useEffect, useState } from "react";
-import { MediaResponseSchema } from "../schemas/response";
 
-import type { Media } from "../schemas/media";
-import type { FetchMessageSchema } from "../schemas/message";
+import type { Manga } from "../schemas";
 
-type Props = { text: string; onLoadingChange: (loading: boolean) => void };
+type Props = {
+  manga: Manga[];
+  thereIsMore: boolean;
+  searchText: string;
+};
 
-const MangaFinder = ({ text, onLoadingChange }: Props) => {
-  const [mangas, setMangas] = useState<Media[]>([]);
-  const [thereIsMore, setThereIsMore] = useState(false);
-
-  useEffect(() => {
-    if (!text) {
-      setMangas([]);
-
-      return;
-    }
-
-    const query = `
-      {
-        Page (page:1, perPage: 8) {
-          pageInfo {
-            hasNextPage
-          }
-          media (type: MANGA, search: "${text}") {
-            id
-            title {
-              romaji
-            }
-            format
-            startDate {
-              year
-            }
-            coverImage {
-              medium
-            }
-          }
-        }
-      }
-    `;
-
-    const cheerioooooooooo = async () => {
-      onLoadingChange(true);
-
-      const data = await browser.runtime.sendMessage({
-        type: "query",
-        query,
-      } satisfies FetchMessageSchema);
-
-      onLoadingChange(false);
-
-      const result = MediaResponseSchema.safeParse(data);
-
-      if (!result.success) {
-        console.error(
-          "something happened, data seems different from the schema:",
-          data,
-        );
-        return;
-      }
-
-      if (!result.data.data) {
-        console.error(result.data.errors);
-        return;
-      }
-
-      setMangas(result.data.data.Page.media);
-      setThereIsMore(result.data.data.Page.pageInfo.hasNextPage);
-    };
-
-    cheerioooooooooo();
-  }, [text, onLoadingChange]);
-
-  if (mangas.length < 1) {
+const MangaList = ({ manga, thereIsMore, searchText: text }: Props) => {
+  if (manga.length < 1) {
     return;
   }
 
@@ -84,7 +20,7 @@ const MangaFinder = ({ text, onLoadingChange }: Props) => {
       </h1>
 
       <ul className="dokodemo-flex dokodemo-min-h-full dokodemo-flex-col dokodemo-overflow-hidden dokodemo-rounded-md dokodemo-bg-white">
-        {mangas.map((manga) => (
+        {manga.map((manga) => (
           <li key={manga.id}>
             <MangaCard manga={manga} />
           </li>
@@ -107,7 +43,7 @@ const MangaFinder = ({ text, onLoadingChange }: Props) => {
   );
 };
 
-const MangaCard = ({ manga }: { manga: Media }) => {
+const MangaCard = ({ manga }: { manga: Manga }) => {
   const { imageUrl, isLoading } = useImage(manga.coverImage.medium);
 
   return (
@@ -139,4 +75,4 @@ const MangaCard = ({ manga }: { manga: Media }) => {
   );
 };
 
-export default MangaFinder;
+export default MangaList;

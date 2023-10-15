@@ -1,68 +1,12 @@
-import { useEffect, useState } from "react";
-import { StudioResponseSchema } from "../schemas/response";
+import type { Studio } from "../schemas";
 
-import type { FetchMessageSchema } from "../schemas/message";
-import type { Studio } from "../schemas/studio";
+type Props = {
+  studios: Studio[];
+  thereIsMore: boolean;
+  searchText: string;
+};
 
-type Props = { text: string; onLoadingChange: (loading: boolean) => void };
-
-const StudioFinder = ({ text, onLoadingChange }: Props) => {
-  const [studios, setStudios] = useState<Studio[]>([]);
-  const [thereIsMore, setThereIsMore] = useState(false);
-
-  useEffect(() => {
-    if (!text) {
-      setStudios([]);
-
-      return;
-    }
-
-    const query = `
-      {
-        Page (page:1, perPage: 8) {
-          pageInfo {
-            hasNextPage
-          }
-          studios (search: "${text}") {
-            id
-            name 
-          }
-        }
-      }
-    `;
-
-    const cheerioooooooooo = async () => {
-      onLoadingChange(true);
-
-      const data = await browser.runtime.sendMessage({
-        type: "query",
-        query,
-      } satisfies FetchMessageSchema);
-
-      onLoadingChange(false);
-
-      const result = StudioResponseSchema.safeParse(data);
-
-      if (!result.success) {
-        console.error(
-          "something happened, data seems different from the schema:",
-          data,
-        );
-        return;
-      }
-
-      if (!result.data.data) {
-        console.error(result.data.errors);
-        return;
-      }
-
-      setStudios(result.data.data.Page.studios);
-      setThereIsMore(result.data.data.Page.pageInfo.hasNextPage);
-    };
-
-    cheerioooooooooo();
-  }, [text, onLoadingChange]);
-
+const StudioList = ({ studios, thereIsMore, searchText: text }: Props) => {
   if (studios.length < 1) {
     return;
   }
@@ -112,4 +56,4 @@ const StudioCard = ({ studio }: { studio: Studio }) => (
   </a>
 );
 
-export default StudioFinder;
+export default StudioList;

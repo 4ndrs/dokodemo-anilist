@@ -1,12 +1,13 @@
 import Modal from "./modal";
 import SearchBar from "./search-bar";
-import StaffFinder from "./staff-finder";
-import AnimeFinder from "./anime-finder";
-import MangaFinder from "./manga-finder";
-import StudioFinder from "./studio-finder";
-import CharacterFinder from "./character-finder";
+import AnimeList from "./anime-list";
+import MangaList from "./manga-list";
+import StaffList from "./staff-list";
+import StudioList from "./studio-list";
+import CharacterList from "./character-list";
 
-import { useCallback, useEffect, useState } from "react";
+import { useSearch } from "../hooks/search";
+import { useEffect, useState } from "react";
 import { ActionMessageSchema, type ActionResponse } from "../schemas/message";
 
 let runningTabId: number | undefined;
@@ -23,29 +24,9 @@ const initialValue = document.getSelection()?.toString() ?? "";
 
 const App = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [textToSearch, setTextToSearch] = useState(initialValue);
   const [searchBarText, setSearchBarText] = useState(initialValue);
 
-  const [isLoading, setIsLoading] = useState({
-    anime: false,
-    manga: false,
-    characters: false,
-    staff: false,
-    studios: false,
-  });
-
-  useEffect(() => {
-    // debounce search text
-    const id = setTimeout(
-      () =>
-        setTextToSearch((previous) =>
-          previous.trim() === searchBarText.trim() ? previous : searchBarText,
-        ),
-      800,
-    );
-
-    return () => clearTimeout(id);
-  }, [searchBarText]);
+  const { data, isLoading } = useSearch(searchBarText);
 
   useEffect(() => {
     // set up communication with the background script
@@ -69,45 +50,12 @@ const App = () => {
       setIsOpen(true);
 
       // reset search or set to the selected text if any
-      const text = result.data.text ?? "";
-
-      setTextToSearch(text);
-      setSearchBarText(text);
+      setSearchBarText(result.data.text ?? "");
 
       // reply so the background script knows content is loaded on this tab
       sendResponse("b-b-b-buffa" satisfies ActionResponse);
     });
   }, []);
-
-  const handleAnimeLoadingChange = useCallback(
-    (loading: boolean) =>
-      setIsLoading((previous) => ({ ...previous, anime: loading })),
-    [],
-  );
-
-  const handleMangaLoadingChange = useCallback(
-    (loading: boolean) =>
-      setIsLoading((previous) => ({ ...previous, manga: loading })),
-    [],
-  );
-
-  const handleCharactersLoadingChange = useCallback(
-    (loading: boolean) =>
-      setIsLoading((previous) => ({ ...previous, characters: loading })),
-    [],
-  );
-
-  const handleStaffLoadingChange = useCallback(
-    (loading: boolean) =>
-      setIsLoading((previous) => ({ ...previous, staff: loading })),
-    [],
-  );
-
-  const handleStudiosLoadingChange = useCallback(
-    (loading: boolean) =>
-      setIsLoading((previous) => ({ ...previous, studios: loading })),
-    [],
-  );
 
   return (
     <Modal open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
@@ -115,32 +63,37 @@ const App = () => {
         placeholder="Search AniList"
         value={searchBarText}
         onChange={({ target: { value } }) => setSearchBarText(value)}
-        isLoading={Object.values(isLoading).some((loading) => loading)}
+        isLoading={isLoading}
       />
 
-      <AnimeFinder
-        text={textToSearch}
-        onLoadingChange={handleAnimeLoadingChange}
+      <AnimeList
+        anime={data.anime.results}
+        searchText={searchBarText}
+        thereIsMore={data.anime.pageInfo.hasNextPage}
       />
 
-      <MangaFinder
-        text={textToSearch}
-        onLoadingChange={handleMangaLoadingChange}
+      <MangaList
+        manga={data.manga.results}
+        searchText={searchBarText}
+        thereIsMore={data.manga.pageInfo.hasNextPage}
       />
 
-      <CharacterFinder
-        text={textToSearch}
-        onLoadingChange={handleCharactersLoadingChange}
+      <CharacterList
+        characters={data.characters.results}
+        searchText={searchBarText}
+        thereIsMore={data.characters.pageInfo.hasNextPage}
       />
 
-      <StaffFinder
-        text={textToSearch}
-        onLoadingChange={handleStaffLoadingChange}
+      <StaffList
+        staff={data.staff.results}
+        searchText={searchBarText}
+        thereIsMore={data.staff.pageInfo.hasNextPage}
       />
 
-      <StudioFinder
-        text={textToSearch}
-        onLoadingChange={handleStudiosLoadingChange}
+      <StudioList
+        studios={data.studios.results}
+        searchText={searchBarText}
+        thereIsMore={data.studios.pageInfo.hasNextPage}
       />
     </Modal>
   );
