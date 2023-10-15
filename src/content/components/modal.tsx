@@ -4,10 +4,12 @@ const Modal = ({
   open,
   children,
   onOpenChange,
+  onCloseAnimationEnd,
 }: {
   open: boolean;
   children: React.ReactNode;
   onOpenChange: (open: boolean) => void;
+  onCloseAnimationEnd: () => void;
 }) => (
   <Dialog.Root open={open} onOpenChange={onOpenChange}>
     <Dialog.Portal>
@@ -17,6 +19,11 @@ const Modal = ({
             // close the modal if we click outside of any of the children
             if (target === currentTarget) {
               onOpenChange(false);
+            }
+          }}
+          onAnimationEndCapture={({ animationName }) => {
+            if (animationName === "dokodemo-slide-out") {
+              onCloseAnimationEnd();
             }
           }}
           className="dokodemo-content dokodemo-absolute dokodemo-left-1/2 dokodemo-grid dokodemo-w-full dokodemo-max-w-[calc(min(1696px,100vw)-(40px*2))] -dokodemo-translate-x-1/2 dokodemo-gap-[43px] dokodemo-px-[56px] dokodemo-py-[80px] dokodemo-leading-[20px] lg:dokodemo-grid-cols-2 2xl:dokodemo-grid-cols-3"

@@ -49,7 +49,7 @@ const App = () => {
 
       setIsOpen(true);
 
-      // reset search or set to the selected text if any
+      // set to the selected text if any
       setSearchBarText(result.data.text ?? "");
 
       // reply so the background script knows content is loaded on this tab
@@ -58,7 +58,11 @@ const App = () => {
   }, []);
 
   return (
-    <Modal open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
+    <Modal
+      open={isOpen}
+      onOpenChange={(open) => setIsOpen(open)}
+      onCloseAnimationEnd={() => setSearchBarText("")}
+    >
       <SearchBar
         placeholder="Search AniList"
         value={searchBarText}
