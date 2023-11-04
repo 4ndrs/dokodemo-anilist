@@ -1,8 +1,10 @@
 .dokodemo-modal * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  line-height: inherit;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: inherit !important;
+  box-shadow: none !important;
+  border-radius: unset !important;
 }
 
 .dokodemo-modal input:focus,
@@ -12,8 +14,8 @@
 }
 
 .dokodemo-modal a {
-  color: unset;
-  text-decoration: unset;
+  color: unset !important;
+  text-decoration: unset !important;
 }
 
 .dokodemo-content {
