@@ -7,6 +7,7 @@ import {
 interface Props extends React.ComponentProps<"input"> {
   isLoading: boolean;
   onClose: () => void;
+  onOpenSettings: () => void;
 }
 
 const SearchBar = (props: Props) => (
@@ -23,7 +24,7 @@ const SearchBar = (props: Props) => (
     />
     <button
       aria-label="Settings"
-      onClick={() => console.log("goooooooooooooooooood morning miyakejimaaaa")}
+      onClick={props.onOpenSettings}
       className="dokodemo-group dokodemo-mx-1 dokodemo-flex dokodemo-cursor-pointer dokodemo-rounded-full dokodemo-border-none dokodemo-bg-transparent"
     >
       <GearIcon className="dokodemo-h-[20px] dokodemo-w-[20px] dokodemo-text-slate-700 dokodemo-transition-colors dokodemo-duration-300 group-hover:dokodemo-text-sky-600 group-focus-visible:dokodemo-text-sky-600" />

@@ -5,6 +5,7 @@
   line-height: inherit !important;
   box-shadow: none !important;
   border-radius: unset !important;
+  border: none !important;
 }
 
 .dokodemo-modal input:focus,
@@ -14,11 +15,12 @@
 }
 
 .dokodemo-modal a {
-  color: unset !important;
-  text-decoration: unset !important;
+  color: unset;
+  text-decoration: unset;
 }
 
-.dokodemo-content {
+.dokodemo-content,
+.settings-content {
   --testing: 1;
 }
 
@@ -30,9 +32,16 @@
   animation: dokodemo-fade-in 300ms ease-out;
 }
 
-.dokodemo-modal[data-state="closed"],
-.dokodemo-content[data-state="closed"] {
+.dokodemo-modal[data-state="closed"] {
   animation: dokodemo-fade-out 200ms ease-in;
+}
+
+.dokodemo-content[data-state="open"] {
+  animation: dokodemo-slide-in 150ms ease-in-out;
+}
+
+.dokodemo-content[data-state="closed"] {
+  animation: dokodemo-slide-out 150ms ease-in-out;
 }
 
 .dokodemo-content[data-state="open"] {

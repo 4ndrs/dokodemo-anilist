@@ -1,3 +1,4 @@
+import { useSettingsStore } from "../store";
 import { useEffect, useState } from "react";
 
 import { FetchMessageSchema } from "../schemas/message";
@@ -17,6 +18,8 @@ export const useSearch = (text: string) => {
   const [data, setData] = useState<Data>(initialValue);
   const [isLoading, setIsLoading] = useState(false);
   const [textToSearch, setTextToSearch] = useState("");
+
+  const { isAdult } = useSettingsStore();
 
   useEffect(() => {
     if (!text) {
@@ -49,7 +52,7 @@ export const useSearch = (text: string) => {
           pageInfo {
             hasNextPage
           }
-          results: media(type: ANIME, search: "${textToSearch}") {
+          results: media(type: ANIME, search: "${textToSearch}", isAdult: ${isAdult}) {
             id
             title {
               romaji
@@ -67,7 +70,7 @@ export const useSearch = (text: string) => {
           pageInfo {
             hasNextPage
           }
-          results: media(type: MANGA, search: "${textToSearch}") {
+          results: media(type: MANGA, search: "${textToSearch}", isAdult: ${isAdult}) {
             id
             title {
               romaji
@@ -120,7 +123,6 @@ export const useSearch = (text: string) => {
           }
         }
       }
-
     `;
 
     const cheerioooooooooo = async () => {
@@ -152,7 +154,7 @@ export const useSearch = (text: string) => {
     };
 
     cheerioooooooooo();
-  }, [textToSearch]);
+  }, [textToSearch, isAdult]);
 
   return { data, isLoading };
 };

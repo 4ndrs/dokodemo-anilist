@@ -3,7 +3,7 @@
   "name": "Dokodemo AniList (Unofficial)",
   "description": "Bring AniList's search box anywhere",
   "version": "0.1.1",
-  "permissions": ["activeTab", "contextMenus", "scripting"],
+  "permissions": ["activeTab", "contextMenus", "scripting", "storage"],
   "background": {
     "scripts": ["background.js"]
   },

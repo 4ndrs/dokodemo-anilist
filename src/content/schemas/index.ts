@@ -74,9 +74,19 @@ export const SearchResponseSchema = z.union([
   ErrorQuerySchema,
 ]);
 
+export const SettingsSchema = z.object({
+  isAdult: z.boolean(),
+});
+
+export const LocalStorageSchema = z.object({
+  settings: SettingsSchema,
+});
+
 export type Anime = z.infer<typeof MediaSchema>;
 export type Manga = z.infer<typeof MediaSchema>;
 export type Staff = z.infer<typeof StaffSchema>;
 export type Studio = z.infer<typeof StudioSchema>;
 export type Character = z.infer<typeof CharacterSchema>;
+export type SettingsSchema = z.infer<typeof SettingsSchema>;
+export type LocalStorageSchema = z.infer<typeof LocalStorageSchema>;
 export type SearchResponseSchema = z.infer<typeof SearchResponseSchema>;

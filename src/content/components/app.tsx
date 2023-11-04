@@ -5,6 +5,7 @@ import MangaList from "./manga-list";
 import StaffList from "./staff-list";
 import StudioList from "./studio-list";
 import CharacterList from "./character-list";
+import SettingsModal from "./settings-modal";
 
 import { useSearch } from "../hooks/search";
 import { useEffect, useState } from "react";
@@ -23,8 +24,9 @@ let runningTabId: number | undefined;
 const initialValue = document.getSelection()?.toString() ?? "";
 
 const App = () => {
-  const [isOpen, setIsOpen] = useState(true);
   const [searchBarText, setSearchBarText] = useState(initialValue);
+  const [dokodemoModalisOpen, setDokodemoModalIsOpen] = useState(true);
+  const [settingsModalIsOpen, setSettingsModalIsOpen] = useState(false);
 
   const { data, isLoading } = useSearch(searchBarText);
 
@@ -43,11 +45,11 @@ const App = () => {
       }
 
       if (result.data.action === "close") {
-        setIsOpen(false);
+        setDokodemoModalIsOpen(false);
         return;
       }
 
-      setIsOpen(true);
+      setDokodemoModalIsOpen(true);
 
       // set to the selected text if any
       setSearchBarText(result.data.text ?? "");
@@ -58,49 +60,57 @@ const App = () => {
   }, []);
 
   return (
-    <Modal
-      open={isOpen}
-      onOpenChange={(open) => setIsOpen(open)}
-      onCloseAnimationEnd={() => setSearchBarText("")}
-    >
-      <SearchBar
-        placeholder="Search AniList"
-        value={searchBarText}
-        isLoading={isLoading}
-        onClose={() => setIsOpen(false)}
-        onChange={({ target: { value } }) => setSearchBarText(value)}
-      />
+    <>
+      <Modal
+        open={dokodemoModalisOpen}
+        onOpenChange={setDokodemoModalIsOpen}
+        onCloseAnimationEnd={() => setSearchBarText("")}
+      >
+        <SearchBar
+          placeholder="Search AniList"
+          value={searchBarText}
+          isLoading={isLoading}
+          onClose={() => setDokodemoModalIsOpen(false)}
+          onOpenSettings={() => setSettingsModalIsOpen(true)}
+          onChange={({ target: { value } }) => setSearchBarText(value)}
+        />
 
-      <AnimeList
-        anime={data.anime.results}
-        searchText={searchBarText}
-        thereIsMore={data.anime.pageInfo.hasNextPage}
-      />
+        <AnimeList
+          anime={data.anime.results}
+          searchText={searchBarText}
+          thereIsMore={data.anime.pageInfo.hasNextPage}
+        />
 
-      <MangaList
-        manga={data.manga.results}
-        searchText={searchBarText}
-        thereIsMore={data.manga.pageInfo.hasNextPage}
-      />
+        <MangaList
+          manga={data.manga.results}
+          searchText={searchBarText}
+          thereIsMore={data.manga.pageInfo.hasNextPage}
+        />
 
-      <CharacterList
-        characters={data.characters.results}
-        searchText={searchBarText}
-        thereIsMore={data.characters.pageInfo.hasNextPage}
-      />
+        <CharacterList
+          characters={data.characters.results}
+          searchText={searchBarText}
+          thereIsMore={data.characters.pageInfo.hasNextPage}
+        />
 
-      <StaffList
-        staff={data.staff.results}
-        searchText={searchBarText}
-        thereIsMore={data.staff.pageInfo.hasNextPage}
-      />
+        <StaffList
+          staff={data.staff.results}
+          searchText={searchBarText}
+          thereIsMore={data.staff.pageInfo.hasNextPage}
+        />
 
-      <StudioList
-        studios={data.studios.results}
-        searchText={searchBarText}
-        thereIsMore={data.studios.pageInfo.hasNextPage}
+        <StudioList
+          studios={data.studios.results}
+          searchText={searchBarText}
+          thereIsMore={data.studios.pageInfo.hasNextPage}
+        />
+      </Modal>
+
+      <SettingsModal
+        open={settingsModalIsOpen}
+        onOpenChange={setSettingsModalIsOpen}
       />
-    </Modal>
+    </>
   );
 };
 
