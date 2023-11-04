@@ -1,11 +1,12 @@
 import {
+  GearIcon,
   Cross2Icon,
   MagnifyingGlassIcon,
-  GearIcon,
 } from "@radix-ui/react-icons";
 
 interface Props extends React.ComponentProps<"input"> {
   isLoading: boolean;
+  onClose: () => void;
 }
 
 const SearchBar = (props: Props) => (
@@ -29,6 +30,7 @@ const SearchBar = (props: Props) => (
     </button>
     <button
       aria-label="Close"
+      onClick={props.onClose}
       className="dokodemo-group dokodemo-mx-1 dokodemo-flex dokodemo-cursor-pointer dokodemo-rounded-full dokodemo-border-none dokodemo-bg-transparent"
     >
       <Cross2Icon className="dokodemo-h-[20px] dokodemo-w-[20px] dokodemo-text-slate-700 dokodemo-transition-colors dokodemo-duration-300 group-hover:dokodemo-text-sky-600 group-focus-visible:dokodemo-text-sky-600" />

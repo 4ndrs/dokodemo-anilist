@@ -66,8 +66,9 @@ const App = () => {
       <SearchBar
         placeholder="Search AniList"
         value={searchBarText}
-        onChange={({ target: { value } }) => setSearchBarText(value)}
         isLoading={isLoading}
+        onClose={() => setIsOpen(false)}
+        onChange={({ target: { value } }) => setSearchBarText(value)}
       />
 
       <AnimeList
