@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Dokodemo AniList (Unofficial)",
   "description": "Bring AniList's search box anywhere",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "permissions": ["activeTab", "contextMenus", "scripting", "storage"],
   "background": {
     "scripts": ["background.js"]
