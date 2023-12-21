@@ -52,7 +52,9 @@ export const useSearch = (text: string) => {
           pageInfo {
             hasNextPage
           }
-          results: media(type: ANIME, search: "${textToSearch}", isAdult: ${isAdult}) {
+          results: media(type: ANIME, search: "${textToSearch}"${
+            isAdult ? "" : ", isAdult: false"
+          }) {
             id
             title {
               romaji
@@ -70,7 +72,9 @@ export const useSearch = (text: string) => {
           pageInfo {
             hasNextPage
           }
-          results: media(type: MANGA, search: "${textToSearch}", isAdult: ${isAdult}) {
+          results: media(type: MANGA, search: "${textToSearch}"${
+            isAdult ? "" : ", isAdult: false"
+          }) {
             id
             title {
               romaji
