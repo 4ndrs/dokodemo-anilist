@@ -6,10 +6,12 @@ import {
 
 import { fetchImage, fetchQuery } from "./fetch";
 
-browser.contextMenus.create({
-  id: "dokodemo-search",
-  title: "Search Dokodemo Anilist",
-});
+browser.runtime.onInstalled.addListener(() =>
+  browser.contextMenus.create({
+    id: "dokodemo-search",
+    title: "Search Dokodemo Anilist",
+  }),
+);
 
 browser.contextMenus.onClicked.addListener(async (info, tab) => {
   browser.permissions.request({ origins: ["https://*.anilist.co/*"] });
