@@ -1,10 +1,11 @@
 # Dokodemo AniList (Unofficial)
-A web extension for Firefox to bring AniList's search box anywhere.
+A web extension to search for anime, manga, characters, staff, and studios using the AniList's API. It adds a new context menu option that can be clicked making a search bar (similar to the one on AniList) appear floating on the current page. If there is text selected, it will be used as a search term when clicking the option.
+
 
 [1697290006016377.webm](https://github.com/4ndrs/dokodemo-anilist/assets/31898900/6662f184-af2d-4f2b-b216-3990b4fbd2af)
 
 ## Installing & Building
-Builds for installing and testing are available [here](https://github.com/4ndrs/dokodemo-anilist/releases). For building it yourself, you need [Bun](https://bun.sh/) installed on your system, then you can proceed installing the dependencies and running the build script with Bun:
+The extension is available for installing on AMO (https://addons.mozilla.org/en-US/firefox/addon/dokodemo-anilist). For building it yourself, you need [Bun](https://bun.sh/) installed on your system, then you can proceed installing the dependencies and running the build script with Bun:
 
 ```console
 $ bun install
